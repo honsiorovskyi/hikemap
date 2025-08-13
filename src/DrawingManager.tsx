@@ -186,7 +186,7 @@ export function DrawingManager(props: DrawingManagerProps) {
             ['==', '$type', 'Point']
           ],
           'paint': {
-            'circle-radius': 7,
+            'circle-radius': 8,
             'circle-color': '#FFF'
           }
         },
@@ -199,13 +199,26 @@ export function DrawingManager(props: DrawingManagerProps) {
             ['==', '$type', 'Point']
           ],
           'paint': {
-            'circle-radius': 5,
+            'circle-radius': 6,
             'circle-color': '#ff0000'
+          }
+        },
+        // Midpoints halo
+        {
+          'id': 'gl-draw-polygon-and-line-midpoint-halo-active',
+          'type': 'circle',
+          'filter': ['all',
+            ['==', 'meta', 'midpoint'],
+            ['==', '$type', 'Point']
+          ],
+          'paint': {
+            'circle-radius': 5,
+            'circle-color': '#FFF'
           }
         },
         // Midpoints
         {
-          'id': 'gl-draw-polygon-midpoint',
+          'id': 'gl-draw-polygon-and-line-midpoint',
           'type': 'circle',
           'filter': ['all',
             ['==', '$type', 'Point'],
