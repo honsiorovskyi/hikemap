@@ -1,0 +1,26 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#2E7D32" stroke="#1B5E20" stroke-width="2"/>
+  
+  <!-- Mountains with stronger contrast -->
+  <path d="M6 48 L18 22 L30 32 L42 18 L54 36 L58 52 L6 52 Z" fill="#4CAF50"/>
+  <path d="M6 48 L18 22 L30 32 L42 18 L54 36" stroke="#66BB6A" stroke-width="2" fill="none"/>
+  
+  <!-- Mountain highlights for depth -->
+  <path d="M18 22 L24 28 L30 32 L36 26 L42 18 L48 24" stroke="#81C784" stroke-width="1.5" fill="none"/>
+  
+  <!-- Trail/Path - thicker and more visible -->
+  <path d="M8 50 Q22 40 32 44 Q42 48 56 42" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-dasharray="4,3"/>
+  
+  <!-- Hiking marker/pin - larger and more prominent -->
+  <circle cx="32" cy="25" r="5" fill="#FF3D00"/>
+  <circle cx="32" cy="25" r="2.5" fill="#FFFFFF"/>
+  <circle cx="32" cy="25" r="1" fill="#FF3D00"/>
+  
+  <!-- Larger trees with better contrast -->
+  <polygon points="12,45 16,36 20,45" fill="#1B5E20"/>
+  <rect x="15" y="45" width="2" height="5" fill="#3E2723"/>
+  
+  <polygon points="46,47 50,38 54,47" fill="#1B5E20"/>
+  <rect x="49" y="47" width="2" height="5" fill="#3E2723"/>
+</svg>
