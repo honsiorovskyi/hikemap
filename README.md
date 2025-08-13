@@ -1,16 +1,65 @@
 # HikeMap
 
-A simple interactive map application built with **SolidJS**, **TypeScript**, and **MapLibre GL JS**.
+A powerful interactive map application for drawing and managing hiking routes and areas, built with **SolidJS**, **TypeScript**, **MapLibre GL JS**, and **Mapbox GL Draw**.
 
 ## Features
 
 - 🗺️ Interactive map powered by MapLibre GL JS
+- ✏️ **Draw Routes (Polylines)** - Create hiking trails, walking paths, or any linear route
+- 🏞️ **Draw Areas (Polygons)** - Mark camping areas, restricted zones, or points of interest
+- 🎯 **Individual Feature Management**:
+  - **Select** individual routes or areas
+  - **Edit** existing features with vertex manipulation
+  - **Delete** unwanted features
+- 📋 **Features Panel** - Visual list of all drawn features with quick actions
 - ⚡ Built with SolidJS for reactive UI
 - 📦 TypeScript for type safety
 - 🔧 ESLint for code quality
 - 🚀 Vite for fast development and building
 - 📱 Responsive design
 - 🌐 Ready for GitHub Pages deployment
+
+## How to Use
+
+### Drawing Controls
+The application provides intuitive controls at the top of the map:
+
+- **📍 Draw Route** - Click to start drawing a polyline (route/trail)
+- **🏞️ Draw Area** - Click to start drawing a polygon (area/zone)
+- **✋ Stop Drawing** - Exit drawing mode and return to selection mode
+
+### Drawing Process
+1. Click a drawing button (Route or Area)
+2. Click on the map to place points
+3. Double-click or press Enter to finish drawing
+4. The new feature will appear in the Features Panel
+
+### Managing Features
+The Features Panel on the right shows all drawn features with these actions:
+
+- **👁️ Select** - Highlight and focus on a feature
+- **✏️ Edit** - Enter direct edit mode to modify vertices
+- **🗑️ Delete** - Remove the feature permanently
+
+### Edit Mode
+When editing a feature:
+- Drag vertices to reposition them
+- Click on edge midpoints to add new vertices
+- Select vertices and press Delete/Backspace to remove them
+- Click outside the feature to exit edit mode
+
+## Technical Implementation
+
+### Drawing Technology
+- **Mapbox GL Draw** - Professional-grade drawing tools
+- **MapLibre GL JS** - High-performance map rendering
+- **Custom Styling** - Visually distinct routes (blue) and areas (green/transparent)
+- **Event Handling** - Real-time feature management and UI updates
+
+### Architecture
+- **Reactive State** - SolidJS signals for feature management
+- **Type Safety** - Full TypeScript integration with GeoJSON types
+- **Component Structure** - Clean separation of map logic and UI controls
 
 ## Quick Start
 
