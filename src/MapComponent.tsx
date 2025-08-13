@@ -25,7 +25,41 @@ export function MapComponent() {
       zoom: 2,
     });
 
-    // Initialize Mapbox Draw with custom line styles
+    // Create custom simple_select mode to disable dragging
+    const createCustomSimpleSelectMode = () => {
+      const SimpleSelectMode = MaplibreDraw.modes.simple_select;
+
+      (SimpleSelectMode as any).onDrag = () => {
+        // Completely disable all dragging in simple_select mode
+        return;
+      };
+      
+      return SimpleSelectMode;
+    };
+
+    // Create custom direct_select mode to disable feature dragging but allow vertex editing
+    const createCustomDirectSelectMode = () => {
+      const DirectSelectMode = MaplibreDraw.modes.direct_select;
+
+      // Store the original onDrag method with proper typing
+      const originalOnDrag = (DirectSelectMode as any).onDrag;
+
+      (DirectSelectMode as any).onDrag = function(state: any, e: any) {
+        // If no coordinates are selected (meaning we're trying to drag the whole feature), prevent it
+        if (!state.selectedCoordPaths || state.selectedCoordPaths.length === 0) {
+          return; // Prevent feature dragging
+        }
+        
+        // Allow vertex dragging by calling the original method if it exists
+        if (originalOnDrag) {
+          return originalOnDrag.call(this, state, e);
+        }
+      };
+      
+      return DirectSelectMode;
+    };
+
+    // Initialize Mapbox Draw with custom modes and styles
     draw = new MaplibreDraw({
       displayControlsDefault: true,
       controls: {
@@ -33,8 +67,15 @@ export function MapComponent() {
         line_string: true,
         polygon: true,
         trash: true,
+        srmode: false,
         combine_features: false,
         uncombine_features: false
+      },
+      // Disable box selection and prevent feature dragging
+      modes: {
+        ...MaplibreDraw.modes,
+        simple_select: createCustomSimpleSelectMode(),
+        direct_select: createCustomDirectSelectMode()
       },
       styles: [
         // Line style for routes (polylines)
@@ -193,14 +234,10 @@ export function MapComponent() {
     // Event listeners for drawing events
     map.on('draw.create', updateFeatures);
     map.on('draw.delete', updateFeatures);
+    // Event listeners for drawing events
+    map.on('draw.create', updateFeatures);
+    map.on('draw.delete', updateFeatures);
     map.on('draw.update', updateFeatures);
-    map.on('draw.selectionchange', (e) => {
-      if (e.features.length > 0) {
-        setSelectedFeature(e.features[0].id);
-      } else {
-        setSelectedFeature(null);
-      }
-    });
   });
 
   const updateFeatures = () => {
@@ -217,17 +254,9 @@ export function MapComponent() {
     }
   };
 
-  const selectFeature = (featureId: string) => {
-    if (draw) {
-      draw.changeMode('simple_select', { featureIds: [featureId] });
-      setSelectedFeature(featureId);
-    }
-  };
-
   const editFeature = (featureId: string) => {
     if (draw) {
       draw.changeMode('direct_select', { featureId: featureId });
-      setSelectedFeature(featureId);
     }
   };
 
@@ -252,16 +281,8 @@ export function MapComponent() {
                   <span class="feature-type">
                     {feature.geometry?.type === 'LineString' ? 'Route' : 'Area'}
                   </span>
-                  <span class="feature-id">ID: {feature.id || 'Unknown'}</span>
                 </div>
                 <div class="feature-actions">
-                  <button 
-                    onClick={() => feature.id && selectFeature(String(feature.id))}
-                    class="action-btn select-btn"
-                    title="Select feature"
-                  >
-                    Select
-                  </button>
                   <button 
                     onClick={() => feature.id && editFeature(String(feature.id))}
                     class="action-btn edit-btn"
